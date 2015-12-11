@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
-     * アプリケーションのグローバルHTTPミドルウェアスタック
+     * アプリケーションのグローバルHTTPミドルウェアスタック.
      *
      * @var array
      */
@@ -29,5 +29,8 @@ class Kernel extends HttpKernel
         'auth'       => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
+
+        // 認証済みで、IDが1のユーザーのみを通過させるカスタムフィルター
+        'auth.first' => \App\Http\Middleware\FirstUser::class,
     ];
 }
