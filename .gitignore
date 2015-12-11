@@ -6,4 +6,4 @@ Homestead.json
 /nbproject
 .directory
 .php_cs
-/storag/database.sqlite
+/storage/database.sqlite
