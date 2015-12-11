@@ -5,50 +5,86 @@
     <meta charset="utf-8">
     {{-- 子のビューで指定される、titleセクションを読み込む --}}
     <title> @yield('title') </title>
-    {{--
-          Laravelの表示関係では、ペジネーション（ページ付け）の
-          ページリンクがBootstrap CSSフレームワーク互換となっている。
-          そのためこのチュートリアルでも当初はBootstrapを採用したが
-          コードが煩雑になるため、構造がより単純なPure CSSフレームワークを
-          今回は使用している。
-        --}}
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    {{-- BootstrapをCDNから読み込む --}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      * { background-color: white; }
-      div { margin-bottom: 1em; }
-      div#content { padding: 1em; }
-
-      /* メッセージ */
-      .errors p, .status p {
-          padding: 0.5em 0 0.5em 1.0em;
-          border: solid 1px;
-      }
-
-      /* ペジネーション */
-      ul.pagination li {
-          display: inline-block;
-          margin: 0.5em;
-      }
-      ul.pagination li.disabled { color: lightgray;}
-      ul.pagination li.active { border-bottom: solid 1px;}
-    </style>
   </head>
   <body>
-    <div id="content" class="pure-g">
+    {{-- ナビバー --}}
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        {{-- モバイル時 --}}
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            {{-- モバイルの横棒３本アイコン --}}
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">UserモデルCRUDサンプル</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="{!! Request::is('/') ? 'active' : '' !!}">
+              <a href="{!! url('/') !!}"><span class="glyphicon glyphicon-home"></span> ホーム</a>
+            </li>
+            @if(Auth::guest())
+            <li class="{!! Request::is('auth/register') ? 'active' : '' !!}">
+              <a href="{!! url('auth/register') !!}"><span class="glyphicon glyphicon-user"></span> ユーザー登録</a>
+            </li>
+            <li class="{!! Request::is('auth/login') ? 'active' : '' !!}">
+              <a href="{!! url('auth/login') !!}"><span class="glyphicon glyphicon-log-in"></span> ログイン</a>
+            </li>
+            @else
+            {{-- ユーザーIDが1の管理者専用領域、他の登録ユーザーではアクセスできないことを確認するためのリンク --}}
+            <li class="{!! Request::is('user') || Request::is('user/*') ? 'active' : '' !!}">
+              <a href="{!! url('user') !!}"><span class="glyphicon glyphicon-cog"></span> ユーザー管理</a>
+            </li>
+            <li>
+              <a href="{!! url('auth/logout') !!}"><span class="glyphicon glyphicon-log-out"></span> ログアウト</a>
+            </li>
+            @endif
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+      {{-- パンくずリスト --}}
+      <div class="row">
+        <div class="col-sm-12">
+          <ol class="breadcrumb">
+            <li class="{!! Request::is('/') ? 'active' : '' !!}">
+              @if(Request::is('/'))
+              <span class="glyphicon glyphicon-home"></span>
+              @else
+              <a href="{!! url('/') !!}"><span class="glyphicon glyphicon-home"></span></a>
+              @endif
+            </li>
+            @yield('breadcrumb')
+          </ol>
+        </div>
+      </div>
       {{--
           エラー以外のメッセージ。
           statusはパスワードリセットで使われている。
       --}}
-      @if(session('status'))
-      <div class="pure-u-1">
-        <div class="status"><p>{{ session('status') }}</p></div>
+      <div class="row">
+        <div class="col-sm-12">
+          @if(session('status'))
+          <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ session('status') }}
+          </div>
+          @endif
+          {{-- 子のビューで指定される、contentセクションを読み込む --}}
+          @yield('content')
+        </div>
       </div>
-      @endif
-      <div class="pure-u-1">
-        {{-- 子のビューで指定される、contentセクションを読み込む --}}
-        @yield('content')
-      </div>
-    </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
+
 </html>

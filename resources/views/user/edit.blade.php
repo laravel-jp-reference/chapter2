@@ -1,52 +1,72 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー情報編集:UserモデルCRUDサンプル
-@endsection
+@stop
+
+@section('breadcrumb')
+<li><a href="{!! url('user') !!}">ユーザー一覧表示</a></li>
+<li class="active">ユーザー情報編集</li>
+@stop
 
 @section('content')
-<h1>ユーザー情報編集</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <form class="form-horizontal" method="POST" >
 
-<form class="pure-form pure-form-aligned" method="POST" >
+      {{-- nameフィールド --}}
+      <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
+        <label class="col-sm-2 control-label" for="name">ユーザー名</label>
+        <div class="col-sm-10">
+          <input id="name" class="form-control" type="name" name="name" value="{{ old('name', $user->name) }}">
+        </div>
+        @if ($errors->has('name'))
+        <div class="col-sm-10 col-sm-offset-2"
+             <span class="help-block">{{ $errors->first('name') }}</span>
+        </div>
+        @endif
+      </div>
 
-  {{-- nameフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('name'))
-    <div class="errors"><p>{{ $errors->first('name') }}</p></div>
-    @endif
-    <label for="name">ユーザー名</label>
-    <input id="name" type="text" name="name"
-           value="{{ old('name', $user->name) }}">
+
+      {{-- emailフィールド --}}
+      <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
+        <label class="col-sm-2 control-label" for="email">メールアドレス</label>
+        <div class="col-sm-10">
+          <input id="email" class="form-control" type="email" name="email" value="{{ old('email', $user->email) }}">
+        </div>
+        @if ($errors->has('email'))
+        <div class="col-sm-10 col-sm-offset-2"
+             <span class="help-block">{{ $errors->first('email') }}</span>
+        </div>
+        @endif
+      </div>
+
+      {{-- passwordフィールド --}}
+      <div class="form-group {!! $errors->has('password') ? 'has-error' : '' !!}">
+        <label class="col-sm-2 control-label" for="password">パスワード</label>
+        <div class="col-sm-10">
+          <input id="password" class="form-control" type="password" name="password">
+        </div>
+        @if ($errors->has('password'))
+        <div class="col-sm-10 col-sm-offset-2"
+             <span class="help-block">{{ $errors->first('password') }}</span>
+        </div>
+        @endif
+      </div>
+
+      {{-- 変更ボタン --}}
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">変更</button>
+        </div>
+      </div>
+
+      {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
+      {!! csrf_field() !!}
+    </form>
   </div>
-
-  {{-- emailフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('email'))
-    <div class="errors"><p>{{ $errors->first('email') }}</p></div>
-    @endif
-    <label for="email">メールアドレス</label>
-    <input id="email" type="email" name="email"
-           value="{{ old('email', $user->email) }}">
-  </div>
-
-  {{-- passwordフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('password'))
-    <div class="errors"><p>{{ $errors->first('password') }}</p></div>
-    @endif
-    <label for="password">パスワード</label>
-    <input id="password" type="password" name="password">
-  </div>
-
-  {{-- 登録ボタン --}}
-  <div class="pure-controls">
-    <button type="submit" class="pure-button">変更</button>
-  </div>
-
-  {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
-  {!! csrf_field() !!}
-</form>
-@endsection
+</div>
+@stop
