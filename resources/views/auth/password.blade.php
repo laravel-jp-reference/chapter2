@@ -1,33 +1,46 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
 
 @section('title')
 リセットメール送信:UserモデルCRUDサンプル
-@endsection
+@stop
+
+@section('page')
+パスワードリセットメール送信
+@stop
 
 @section('content')
-<h1>パスワードリセットメール送信</h1>
-<form class="pure-form pure-form-aligned" method="POST">
-  <fieldset>
+<div class="row">
+  <form class="col s12" method="POST">
 
     {{-- emailフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('email'))
-      <div class="errors"><p>{{ $errors->first('email') }}</p></div>
-      @endif
-      <label for="email">メールアドレス</label>
-      <input id="email" type="email" name="email"
-             value="{{ old('email') }}">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="email" type="email" name="email" value="{{ old('email') }}" length="255"
+               class="{{ $errors->has('email') ? 'error' : '' }}">
+        <label for="email">メールアドレス</label>
+        @if ($errors->has('email'))
+        <p class="error-msg">{{ $errors->first('email') }}</p>
+        @else
+        <p class="help-msg">登録したあなたのメールアドレスを指定してください。</p>
+        @endif
+      </div>
     </div>
+
     {{-- リセットボタン --}}
-    <div class="pure-controls">
-      <button type="submit" class="pure-button">パスワードリセットのメール送信</button>
+    <div class="row">
+      <div class="col s12 input-field">
+        <button class="btn waves-effect" type="submit" name="action">
+          リセットメール送信 <i class="material-icons right">send</i>
+        </button>
+      </div>
     </div>
+
 
     {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
     {!! csrf_field() !!}
-  </fieldset>
-</form>
+  </form>
+</div>
 @endsection

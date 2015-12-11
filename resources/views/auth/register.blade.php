@@ -1,60 +1,87 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー登録:UserモデルCRUDサンプル
-@endsection
+@stop
+
+@section('page')
+ユーザー登録
+@stop
 
 @section('content')
-<h1>ユーザー登録</h1>
-<form class="pure-form pure-form-aligned" method="POST">
-  <fieldset>
+<div class="row">
+  <form class="col s12" method="POST">
 
     {{-- nameフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('name'))
-      <div class="errors"><p>{{ $errors->first('name') }}</p></div>
-      @endif
-      <label for="name">ユーザー名</label>
-      <input id="name" type="text" name="name" value="{{ old('name') }}">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="name" type="text" name="name" value="{{ old('name') }}" length="255"
+               class="{{ $errors->has('name') ? 'error' : '' }}">
+        <label for="name">ユーザー名</label>
+        @if ($errors->has('name'))
+        <p class="error-msg">{{ $errors->first('name') }}</p>
+        @else
+        <p class="help-msg">登録するユーザー名を指定してください。</p>
+        @endif
+      </div>
     </div>
 
     {{-- emailフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('email'))
-      <div class="errors"><p>{{ $errors->first('email') }}</p></div>
-      @endif
-      <label for="email">メールアドレス</label>
-      <input id="email" type="email" name="email" value="{{ old('email') }}">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="email" type="email" name="email" value="{{ old('email') }}" length="255"
+               class="{{ $errors->has('email') ? 'error' : '' }}">
+        <label for="email">メールアドレス</label>
+        @if ($errors->has('email'))
+        <p class="error-msg">{{ $errors->first('email') }}</p>
+        @else
+        <p class="help-msg">登録するメールアドレスを指定してください。</p>
+        @endif
+      </div>
     </div>
 
     {{-- passwordフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('password'))
-      <div class="errors"><p>{{ $errors->first('password') }}</p></div>
-      @endif
-      <label for="password">パスワード</label>
-      <input id="password" type="password" name="password">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="password" type="password" name="password"
+               class="{{ $errors->has('password') ? 'error' : '' }}">
+        <label for="password">パスワード</label>
+        @if ($errors->has('password'))
+        <p class="error-msg">{{ $errors->first('password') }}</p>
+        @else
+        <p class="help-msg">登録するパスワードを指定してください。</p>
+        @endif
+      </div>
     </div>
 
     {{-- password_confirmationフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('password_confirmation'))
-      <div class="errors"><p>{{ $errors->first('password_confirmation') }}</p></div>
-      @endif
-      <label for="password_confirmation">パスワード確認</label>
-      <input id="password_confirmation" type="password" name="password_confirmation">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="password_confirmation" type="password" name="password_confirmation"
+               class="{{ $errors->has('password_confirmation') ? 'error' : '' }}">
+        <label for="password_confirmation">パスワード確認</label>
+        @if ($errors->has('password_confirmation'))
+        <p class="error-msg">{{ $errors->first('password_confirmation') }}</p>
+        @else
+        <p class="help-msg">確認のためパスワードをもう一度指定してください。</p>
+        @endif
+      </div>
     </div>
 
     {{-- 登録ボタン --}}
-    <div class="pure-controls">
-      <button type="submit" class="pure-button">登録</button>
+    <div class="row">
+      <div class="col s12 input-field">
+        <button class="btn waves-effect" type="submit" name="action">
+          ユーザー登録 <i class="material-icons right">send</i>
+        </button>
+      </div>
     </div>
 
     {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
     {!! csrf_field() !!}
-  </fieldset>
-</form>
-@endsection
+  </form>
+</div>
+@stop

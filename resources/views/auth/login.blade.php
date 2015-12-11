@@ -1,60 +1,82 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
 
 @section('title')
 ログイン:UserモデルCRUDサンプル
-@endsection
+@stop
 
+@section('page')
+ログイン
+@stop
 @section('content')
-<h1>ログイン</h1>
+<div class="row">
+  {{-- actionのURLをコントローラーとアクションを指定し生成 --}}
+  <form class="col s12" method="POST">
 
-{{-- actionのURLをコントローラーとアクションを指定し生成 --}}
-<form class="pure-form pure-form-aligned" method="POST">
-  <fieldset>
-
-    {{-- nameフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('email'))
-      <div class="errors"><p>{{ $errors->first('email') }}</p></div>
-      @endif
-      <label for="email">メールアドレス</label>
-      <input id="email" type="email" name="email" value="{{ old('email') }}">
+    {{-- emailフィールド --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="email" type="email" name="email" value="{{ old('email') }}" length="255"
+               class="{{ $errors->has('email') ? 'error' : '' }}">
+        <label for="email">メールアドレス</label>
+        @if ($errors->has('email'))
+        <p class="error-msg">{{ $errors->first('email') }}</p>
+        @else
+        <p class="help-msg">登録したあなたのメールアドレスを指定してください。</p>
+        @endif
+      </div>
     </div>
 
     {{-- passwordフィールド --}}
-    <div class="pure-control-group">
-      @if ($errors->has('password'))
-      <div class="errors"><p>{{ $errors->first('password') }}</p></div>
-      @endif
-      <label for="password">パスワード</label>
-      <input id="password" type="password" name="password">
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="password" type="password" name="password"
+               class="{{ $errors->has('password') ? 'error' : '' }}">
+        <label for="password">パスワード</label>
+        @if ($errors->has('password'))
+        <p class="error-msg">{{ $errors->first('password') }}</p>
+        @else
+        <p class="help-msg">もしパスワードを忘れた時は、一番下のボタンを利用してください。</p>
+        @endif
+      </div>
     </div>
 
-    <div class="pure-controls">
+    {{-- ログインボタン --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <button class="btn waves-effect" type="submit" name="action">
+          ログイン <i class="material-icons right">send</i>
+        </button>
+      </div>
 
       {{-- remembe me（継続ログイン）の有効無効指定チェックボックス --}}
-      <label for="remember" class="pure-checkbox">
-        <input id="remember" type="checkbox" name="remember"> 継続ログイン
-      </label>
+      <div class="col s12 input-field">
+        <input id="remember" type="checkbox" name="remember">
+        <label for="remember">ログインしたままにする</label>
+      </div>
+    </div>
 
-      {{-- ログインボタン --}}
-      <button type="submit" class="pure-button">ログイン</button>
+    <div class="divider"></div>
 
-      {{-- パスワードリセットボタン --}}
-      {{--
+    {{-- パスワードリセットボタン --}}
+    {{--
                たとえばルートURLにサブディレクトリーが含まれる場合を
                考慮し、URIをリンク先に指定する場合でもurlヘルパーで
                フルURLを生成する。
             --}}
-      <a class="pure-button" href="{!! url('/password/email') !!}">
-        パスワードリセット
-      </a>
+
+    <div class="row">
+      <div class="col s12 input-field">
+        <a class="btn waves-effect waves-light" href="{!! url('/password/email') !!}">
+          パスワードを忘れました
+        </a>
+      </div>
     </div>
 
     {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
     {!! csrf_field() !!}
-  </fieldset>
-</form>
+  </form>
+</div>
 @endsection

@@ -1,52 +1,76 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー情報編集:UserモデルCRUDサンプル
-@endsection
+@stop
+
+@section('page')
+ユーザー情報編集
+@stop
 
 @section('content')
-<h1>ユーザー情報編集</h1>
+<div class="row">
+  <form class="col s12" method="POST" >
 
-<form class="pure-form pure-form-aligned" method="POST" >
+    {{-- nameフィールド --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="name" type="text" name="name"
+               value="{{ old('name', $user->name) }}" length="255"
+               class="{{ $errors->has('name') ? 'error' : '' }}">
+        <label for="name">ユーザー名</label>
+        @if ($errors->has('name'))
+        <p class="error-msg">{{ $errors->first('name') }}</p>
+        @else
+        <p class="help-msg">登録するユーザー名を指定してください。</p>
+        @endif
+      </div>
+    </div>
 
-  {{-- nameフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('name'))
-    <div class="errors"><p>{{ $errors->first('name') }}</p></div>
-    @endif
-    <label for="name">ユーザー名</label>
-    <input id="name" type="text" name="name"
-           value="{{ old('name', $user->name) }}">
-  </div>
 
-  {{-- emailフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('email'))
-    <div class="errors"><p>{{ $errors->first('email') }}</p></div>
-    @endif
-    <label for="email">メールアドレス</label>
-    <input id="email" type="email" name="email"
-           value="{{ old('email', $user->email) }}">
-  </div>
+    {{-- emailフィールド --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="email" type="email" name="email"
+               value="{{ old('email', $user->email) }}" length="255"
+               class="{{ $errors->has('email') ? 'error' : '' }}">
+        <label for="email">メールアドレス</label>
+        @if ($errors->has('email'))
+        <p class="error-msg">{{ $errors->first('email') }}</p>
+        @else
+        <p class="help-msg">登録するメールアドレスを指定してください。</p>
+        @endif
+      </div>
+    </div>
 
-  {{-- passwordフィールド --}}
-  <div class="pure-control-group">
-    @if ($errors->has('password'))
-    <div class="errors"><p>{{ $errors->first('password') }}</p></div>
-    @endif
-    <label for="password">パスワード</label>
-    <input id="password" type="password" name="password">
-  </div>
+    {{-- passwordフィールド --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <input id="password" type="password" name="password"
+               class="{{ $errors->has('password') ? 'error' : '' }}">
+        <label for="password">パスワード</label>
+        @if ($errors->has('password'))
+        <p class="error-msg">{{ $errors->first('password') }}</p>
+        @else
+        <p class="help-msg">登録するパスワードを指定してください。</p>
+        @endif
+      </div>
+    </div>
 
-  {{-- 登録ボタン --}}
-  <div class="pure-controls">
-    <button type="submit" class="pure-button">変更</button>
-  </div>
+    {{-- 更新ボタン --}}
+    <div class="row">
+      <div class="col s12 input-field">
+        <button class="btn waves-effect" type="submit" name="action">
+          更新 <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
 
-  {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
-  {!! csrf_field() !!}
-</form>
-@endsection
+    {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}
+    {!! csrf_field() !!}
+  </form>
+</div>
+@stop
