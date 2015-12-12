@@ -124,6 +124,22 @@ $ php artisan db:seed
 生成されるデータはランダムなもので、「6-3 モデルファクトリ」(P.313)の機能を利用しています。
 他のユーザーでもログインして試せるように、生成ユーザーのパスワードは全部"password"にしています。
 
+## 修正点
+
+初期状態のプロジェクトに対し、どこに手を入れてあるかを確認するにはgit diffを利用してください。
+
+~~~
+git diff init master
+~~~
+
+変更を確認するには、ルート定義のapp/Http/routes.phpファイル、
+２つのコントローラ（app/Http/Controllers/HomeController.php、app/Http/Controllers/UserContoller.php)
+から確認すると、要点がつかみやすいでしょう。
+
+ビューを読むときはまず全体のレイアウトのresources/views/layout.blade.phpと、
+コメントを特に多く入れているログインビューのresources/views/auth/login.blade.phpファイルから
+調べると、理解しやすいでしょう。
+
 ## ライセンス
 
 このプロジェクトファイルはImpress社から出版されている「Laravelリファレンス」を補助する内容です。そのため、このreadme.mdファイルのみ、川瀬裕久による通常の著作物です。

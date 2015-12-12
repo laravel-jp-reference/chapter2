@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * 未認証（未ログイン）ユーザーのみ通過させるミドルウェア
+ */
 class RedirectIfAuthenticated
 {
     /**
@@ -34,6 +37,7 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
+        // checkメソッドはログイン時にtrueとなる
         if ($this->auth->check()) {
             return redirect('/home');
         }

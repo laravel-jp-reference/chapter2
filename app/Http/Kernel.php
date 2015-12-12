@@ -7,7 +7,9 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
-     * アプリケーションのグローバルHTTPミドルウェアスタック.
+     * アプリケーションのグローバルHTTPミドルウェアスタック
+     *
+     * リクエストごとに適用されるミドルウェア
      *
      * @var array
      */
@@ -23,6 +25,10 @@ class Kernel extends HttpKernel
     /**
      * アプリケーションのルートミドルウェアスタック
      *
+     * ルート定義で個別に指定するミドルウェア
+     *
+     * キー名で指定する。
+     *
      * @var array
      */
     protected $routeMiddleware = [
@@ -30,7 +36,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
 
-        // 認証済みで、IDが1のユーザーのみを通過させるカスタムフィルター
+        // 認証済みで、IDが1のユーザーのみを通過させるカスタムミドルウェア
         'auth.first' => \App\Http\Middleware\FirstUser::class,
     ];
 }

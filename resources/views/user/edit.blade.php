@@ -1,16 +1,16 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー情報編集:UserモデルCRUDサンプル
-@stop
+@endsection
 
 @section('breadcrumb')
 <li><a href="{!! url('user') !!}">ユーザー一覧表示</a></li>
 <li class="active">ユーザー情報編集</li>
-@stop
+@endsection
 
 @section('content')
 <div class="row">
@@ -69,4 +69,4 @@
     </form>
   </div>
 </div>
-@stop
+@endsection

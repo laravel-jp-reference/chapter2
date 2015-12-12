@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -55,23 +56,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        // CSRFトークンが存在しない、トークン不一致時に投げられる
-        // TokenMismatchException例外を404で処理。
+        // CSRFトークンが存在しない、トークン不一致時に投げられる。
+        // TokenMismatchException例外を403で処理。
         // もちろん適切であれば、HTTPステータスは自由に設定できる。
         if ($e instanceof TokenMismatchException) {
             // abortヘルパーによりSymfony\Component\HttpFoundation\Exception\HttpException例外が
             // 投げられ、再度このrenderメソッドで処理される。この例外の
             // ステータスコードに一致するビューがapp/resources/views/errorsに
-            // 存在していれば、そのビューが表示される。今回は404.blade.phpファイルが
+            // 存在していれば、そのビューが表示される。今回は403.blade.phpファイルが
             // 存在しているため、このファイルの内容がエラーページとして表示される。
-            abort(404);
+            abort(403);
         }
 
-        // このrenderソッドにデフォルトで含まれている処理
+        // このrenderメソッドに最初から含まれている処理。
         // EloquentのfindOrFailソッドなどが投げるModelNotFoundException例外を
         // 404エラーにしている。
         if ($e instanceof ModelNotFoundException) {
-            // 404エラー例外はabort(404)のほか、以下のように発生可能。
+            // 404エラー例外はabort(404)を使わず、次のように発生可能。
             $e = new NotFoundHttpException($e->getMessage(), $e);
         }
 

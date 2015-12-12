@@ -1,24 +1,24 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 パスワードリセット:UserモデルCRUDサンプル
-@stop
+@endsection
 
 @section('breadcrumb')
 <li><a href="{!! url('auth/login') !!}">ログイン</a></li>
 <li class="active">パスワードリセット</li>
-@stop
+@endsection
 
 @section('content')
 <div class="row">
   <div class="col-sm-12">
     {{--
-  このフォームの表示URIが/password/reset/トークン に対して、その処理は
-  POSTメソッドの/password/resetになる。同一ではないためactionを指定する。
---}}
+      このフォームの表示URIが/password/reset/トークン に対して、その処理は
+      POSTメソッドの/password/resetになる。同一ではないためactionを指定する。
+    --}}
     <form class="form-horizontal" method="POST"
           action="{!! url('/password/reset') !!}">
 
@@ -72,7 +72,7 @@
         メールから送られてきたパスワードリセットトークン。
         これによりメールを受け取った本人のみリセット可能で、
         第三者によりリセットされないようにする。
-        --}}
+      --}}
       <input type="hidden" name="token" value="{{ $token }}">
 
       {{-- CSRFを防ぐためのトークンを隠しフィールドに埋め込むコードの生成 --}}

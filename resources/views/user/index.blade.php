@@ -1,15 +1,15 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー一覧表示:UserモデルCRUDサンプル
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">ユーザー一覧表示</li>
-@stop
+@endsection
 
 @section('content')
 {{-- ユーザーレコード一覧表示 --}}
@@ -59,5 +59,4 @@
     {!! $users->render() !!}
   </div>
 </div>
-@stop
-
+@endsection
