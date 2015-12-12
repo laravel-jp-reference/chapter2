@@ -1,4 +1,5 @@
-{{-- これはbladeのコメント記法で、レンダー後のHTMLには含まれない。 --}}
+{{-- これはbladeのコメント記法で、レンダー後のHTMLには含まれない --}}
+{{-- 各ページ共通のレイアウト --}}
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -11,7 +12,7 @@
           そのためこのチュートリアルでも当初はBootstrapを採用したが
           コードが煩雑になるため、構造がより単純なPure CSSフレームワークを
           今回は使用している。
-        --}}
+    --}}
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -37,8 +38,9 @@
   <body>
     <div id="content" class="pure-g">
       {{--
-          エラー以外のメッセージ。
-          statusはパスワードリセットで使われている。
+          項目のバリデーションエラー以外のメッセージを表示する。
+          statusキーは、Laravel組み込みのパスワードリセット機能で使われている。
+          今回は、他のメッセージ表示でもstatusキーを活用する。
       --}}
       @if(session('status'))
       <div class="pure-u-1">

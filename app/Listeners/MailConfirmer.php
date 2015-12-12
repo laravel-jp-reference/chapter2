@@ -16,12 +16,14 @@ class MailConfirmer
      * コンストラクター
      *
      * メール操作はファサードを使っても簡単だが、
-     * ここではコンストラクターインジェクションを
-     * 使うサンプルとした。
-     * イベントリスナーはサービスプロバイダーにより
-     * インスタンス化される。その際、コンストラクターの
-     * 引数でタイプヒントを使用すると、そのクラスの
-     * インスタンスを渡してくれる。
+     * ここではコンストラクターインジェクションを使うサンプルとした。
+     * イベントリスナーはサービスコンテナによりインスタンス化される。
+     * その際、コンストラクターの引数でタイプヒントを使用すると、
+     * そのクラスのインスタンスを渡してくれる。
+     *
+     * 参照 :
+     *   本文 : 「5-1 サービスコンテナ」(P.244)
+     *   ドキュメント : http://readouble.com/laravel/5/1/ja/container.html
      */
     public function __construct(Mailer $mailer)
     {
@@ -31,7 +33,7 @@ class MailConfirmer
     /**
      * ユーザー登録イベントの処理
      *
-     * 登録済みの旨を知らせるメールを送信する。
+     * ユーザー登録を知らせるメールを送信する。
      *
      * @param UserRegistered $event
      */
@@ -40,7 +42,7 @@ class MailConfirmer
         // App\Userのインスタンスを取得
         $user = $event->user;
 
-        // 登録済みメール送信
+        // 登録済み通知メール送信
         $this->mailer->send('emails.register',
             ['name' => $user->name],
             function ($mail) use ($user) {

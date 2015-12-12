@@ -1,7 +1,7 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@endsectionまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー一覧表示:UserモデルCRUDサンプル
@@ -46,6 +46,6 @@
   </tbody>
 </table>
 
-{{-- ペジネーションリンク --}}
+{{-- ページネーションリンク --}}
 {!! $users->render() !!}
 @endsection

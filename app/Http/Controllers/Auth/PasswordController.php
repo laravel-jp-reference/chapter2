@@ -5,6 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
+/**
+ * パスワードリセット処理
+ *
+ * Laravel組み込みのリセット処理クラス。
+ *
+ * 参照 :
+ *   本文 : 「4-1 認証」(P.156)
+ *   ドキュメント : http://readouble.com/laravel/5/1/ja/authentication.html
+ */
 class PasswordController extends Controller
 {
     /*
