@@ -1,15 +1,15 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 ユーザー一覧表示:UserモデルCRUDサンプル
-@stop
+@endsection
 
 @section('page')
 ユーザー一覧表示
-@stop
+@endsection
 
 @section('content')
 {{-- ユーザーレコード一覧表示 --}}
@@ -55,11 +55,10 @@
 <div class="row">
   <div class="col s12">
     {{--
-        ペジネーションリンク
-        MaterializedとLaravelがデフォルトで生成するBootstrapのペジネーションは
-        互換性があるため流用できる。
+      MaterializedとLaravelがデフォルトで生成するBootstrapのペジネーションは
+      互換性があるため流用できる。
     --}}
     {!! $users->render() !!}
   </div>
 </div>
-@stop
+@endsection

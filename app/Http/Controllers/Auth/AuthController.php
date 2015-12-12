@@ -9,6 +9,15 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Validator;
 
+/**
+ * Laravel組み込みの認証（ログイン）コントローラー
+ *
+ * 実際にはユーザー認証とユーザー登録の２つの役目を持っている。
+ *
+ * 参照 :
+ *   本文 : 「4-1 認証」(P.156)
+ *   ドキュメント : http://readouble.com/laravel/5/1/ja/authentication.html
+ */
 class AuthController extends Controller
 {
     use AuthenticatesAndRegistersUsers,
@@ -56,9 +65,9 @@ class AuthController extends Controller
 
         // ユーザー生成イベント発行
         // イベントを受け取るリスナーを登録することで
-        // ユーザー追加に関わる機能の拡張は
-        // このメソッドをいじらず簡単にできるようになる。
-        // イベントと処理するリスナーは
+        // ユーザー追加時に関わる機能の拡張は
+        // このメソッドを直接変更せずにリスナーで簡単に
+        // できるようになる。イベントと処理するリスナーは
         // App\Providers\EventServiceProviderに登録する。
         event(new UserRegistered($user));
 

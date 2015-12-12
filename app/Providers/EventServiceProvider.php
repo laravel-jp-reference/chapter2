@@ -7,6 +7,13 @@ use App\Listeners\MailConfirmer;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+/**
+ * イベントと対応するリスナー登録のためのサービスプロバイダ
+ *
+ * 参照 :
+ *   本文 : 「4-5 イベント」(P.190)
+ *   ドキュメント : http://readouble.com/laravel/5/1/ja/events.html
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**

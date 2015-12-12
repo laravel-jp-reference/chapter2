@@ -1,4 +1,5 @@
-{{-- これはbladeのコメント記法で、レンダー後のHTMLには含まれない。 --}}
+{{-- これはbladeのコメント記法で、レンダー後のHTMLには含まれない --}}
+{{-- 各ページ共通のレイアウト --}}
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -10,7 +11,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     {{-- 子のビューで指定される、titleセクションを読み込む --}}
     <title> @yield('title') </title>
-    {{-- 調節 --}}
+   {{-- 調節 --}}
     <style>
       body {
           background-color: #f9f9f9;
@@ -125,9 +126,10 @@
       </div>
     </nav>
     {{--
-          エラー以外のメッセージ。
-          statusはパスワードリセットで使われている。
-        --}}
+      項目のバリデーションエラー以外のメッセージを表示する。
+      statusキーは、Laravel組み込みのパスワードリセット機能で使われている。
+      今回は、他のメッセージ表示でもstatusキーを活用する。
+    --}}
     @if(session('status'))
     <div class="row z-depth-1">
       <div class="col s12 orange lighten-1">
@@ -152,10 +154,10 @@
     {{-- トーストを使用し、infoメッセージを出力 --}}
     <script type="text/javascript">
         $(document).ready(function () {
-$(".button-collapse").sideNav();
-        @if (session('info'))
-        Materialize.toast("{{ session('info') }}", 4000);
-        @endif
+          $(".button-collapse").sideNav();
+          @if (session('info'))
+          Materialize.toast("{{ session('info') }}", 4000);
+          @endif
         });
     </script>
 

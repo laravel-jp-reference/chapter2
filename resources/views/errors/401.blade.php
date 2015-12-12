@@ -1,21 +1,25 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 権限がありません
-@stop
+@endsection
 
 @section('page')
 401
-@stop
+@endsection
 
 @section('content')
 <div class="row">
   <div class="col s12">
     <h4>権限がありません</h4>
-    <p>このページにアクセスする権限がありません。</p>
+    {{--
+      abortヘルパーでコードと共にメッセージが渡された場合は、それを優先し表示する。
+      メッセージが指定されていない場合はデフォルトのメッセージを表示する。
+    --}}
+    <p>{{ $exception->getMessage() ? : 'このページにアクセスするには認証と資格が必要です。' }}</p>
   </div>
 </div>
-@stop
+@endsection

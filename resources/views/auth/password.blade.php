@@ -1,15 +1,15 @@
 {{-- 親ビューの指定 --}}
 @extends('layout')
 
-{{-- 以降の@sectionから@stopまでの間が各セクションの内容となる --}}
+{{-- 以降の@sectionから、@endsectionまでの間が各セクションの内容となる --}}
 
 @section('title')
 リセットメール送信:UserモデルCRUDサンプル
-@stop
+@endsection
 
 @section('page')
 パスワードリセットメール送信
-@stop
+@endsection
 
 @section('content')
 <div class="row">
