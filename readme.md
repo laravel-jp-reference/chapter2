@@ -62,7 +62,7 @@ $ composer install
 # もしくは
 $ composer update
 ````
-> Composerの仕様変更のため、install実行時にエラーが起きることがあります。その場合は、プロジェクトルートに存在するcomposer.lockファイルを削除してください。
+> Composerの仕様変更のため、install実行時にエラーが起きることがあります。その場合は、プロジェクトルートに存在するcomposer.lockファイルを削除してください。そして、実行時に`--no-scripts`オプションを付けてインストールしてください。
 
 #### 4. .envファイルの設定
 
